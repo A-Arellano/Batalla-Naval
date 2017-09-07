@@ -1,5 +1,5 @@
 #include <iostream>
-
+//Esta es la batalla2
 using namespace std;
 
 struct Tablero
