@@ -63,6 +63,7 @@ Pesquero crear_pesquero ();
 Submarino crear_submarino ();
 Acorazado crear_acorazado();
 Portaaviones crear_portaaviones();
+void cargar_pesquero (Pesquero &pesquero, Tablero &tablero);
 
 int main()
 {
@@ -78,21 +79,28 @@ int main()
     int cantbarc2 = 1;
     Submarino submarino;
 
-    Tablero tablero = creartablero();
+    Tablero tablero = cargar_tablero();
     mostrartablero(tablero);
-    p1 = crear_pesquero();
+
+    cargar_pesquero(p1, tablero);
+    cout << "datos pesquero: " << p1.taman << "  " << p1.columna_1 << "  " << p1.fila_1 << endl;
     ubicarpesquero(p1, tablero);
     mostrartablero(tablero);
+
     s1 = crear_submarino();
     ubicarsubmarino(s1, tablero);
     mostrartablero(tablero);
+
     a1 = crear_acorazado();
     ubicaracorazado(a1, tablero);
     mostrartablero(tablero);
+
     pa1 = crear_portaaviones();
     ubicarportaaviones(pa1, tablero);
     mostrartablero(tablero);
+
     guardar_tablero(tablero);
+
     return 0;
 }
 
@@ -120,6 +128,7 @@ Tablero creartablero ()
 
 void mostrartablero (Tablero T_Naval)
 {
+
     for (int i = 0 ; i < 10 ; i++)
     {
         for (int j = 0 ; j < 10 ; j++)
@@ -170,15 +179,18 @@ Tablero cargar_tablero ()
                 {
 
                    miTablero >> tablerocarga.columna[i][j];
+                   if(tablerocarga.columna[i][j] == 1){
+                   }
                 }
             }
         }
+        miTablero.close();
     return tablerocarga;
 }
 
 void ubicarpesquero (Pesquero &pesquero, Tablero &tablero)
 {
-    tablero.columna[pesquero.fila_1][pesquero.columna_1] = pesquero.taman;
+    tablero.columna[pesquero.columna_1][pesquero.fila_1] = pesquero.taman;
 }
 
 void ubicarsubmarino (Submarino &submarino, Tablero &tablero)
@@ -338,6 +350,44 @@ Portaaviones crear_portaaviones ()
     return portaaviones;
 }
 
+void cargar_pesquero (Pesquero &pesquero, Tablero &tablero)
+{
+    pesquero.taman = 1;
+    int cant = 0;
+    int j = 0;
+    int i = 0;
+    while(cant < 1)
+    {
+       if (tablero.columna[i][j] == pesquero.taman)
+        {
+        mostrartablero(tablero);
+        pesquero.fila_1=j;
+        pesquero.columna_1=i;
+        cant++;
+        }
+        j++;
+        if(j == 9)
+        {
+            j=0;
+            i++;
+        }
+    }
+
+}
 
 
 
+
+    /*
+    for(int i = 0; i < 10; i++)
+        {
+            for(int j = 0; j < 10; j++)
+            {
+                if (tablero.columna[i][j] == 1)
+                {
+                    pesquero.fila_1 = i;
+                    pesquero.columna_1 = j;
+                }
+            }
+        }
+    */
